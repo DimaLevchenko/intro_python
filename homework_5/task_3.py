@@ -3,15 +3,15 @@
 
 a = int(input('Ввести 1 значение: '))
 b = int(input('Ввести 2 значение: '))
-c = input('Square or triangle: ')
+c = input('Треугольник или квадрат: ')
+
 
 def s():
-    if c == ('triangle'):
+    if c == ('треугольник') or c == ('Треугольник'):
         p = 0.5 * a * b
-        print(p)
     else:
         p = a ** 2
-        print(p)
-    return s
+    return p
 
-print(s())
+
+print('Площадь указанной фигуры - ', s())

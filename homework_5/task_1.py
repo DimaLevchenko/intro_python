@@ -2,14 +2,18 @@
 # и `False` - иначе.
 # (Простые числа - те которые делятся без остатка только на само себя или 1, например 2, 3, 5, 7, 11...)
 
-#x = int(input('Введите число от 0 до 1000: '))
-#
-#def is_prime(y):
-#    for z in range(2, y+1):
-#        if y % z == 0: #or z % 1 == 0:
-#            print('False')
-#        else:
-#            print('True')
-#    return y
-#
-#print(is_prime(x))
+x = int(input('Введите число от 0 до 1000: '))
+
+
+def is_prime(n):
+    count = 0
+    for i in range(n, 0, -1):
+        if n % i == 0:
+            count += 1
+    if count > 2:
+        print('False')
+    else:
+        print('True')
+
+
+is_prime(x)
