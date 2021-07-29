@@ -11,9 +11,9 @@ def is_prime(n):
         if n % i == 0:
             count += 1
     if count > 2:
-        print('False')
+        return False
     else:
-        print('True')
+        return True
 
 
-is_prime(x)
+print(is_prime(x))

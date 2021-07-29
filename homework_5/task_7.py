@@ -10,12 +10,12 @@ m = int(input('Enter month: '))
 y = int(input('Enter year: '))
 
 
-def is_date(x, y, z):
+def is_date(a, b, c):
     try:
-        datetime(day=x, month=y, year=z)
-        print('True')
+        datetime(day=a, month=b, year=c)
+        return True
     except ValueError:
-        print('False')
+        return False
 
 
-is_date(d, m, y)
+print(is_date(d, m, y))

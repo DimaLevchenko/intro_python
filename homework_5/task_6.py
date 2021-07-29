@@ -7,7 +7,7 @@ print('Словарь: ', slov)
 
 
 def ubr_elem(sl):
-    sl2 = {k: v for k, v in sl.items() if v != None}
+    sl2 = {k: v for k, v in sl.items() if v not in None}
     return sl2
 
 
