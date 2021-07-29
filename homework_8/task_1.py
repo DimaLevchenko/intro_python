@@ -34,10 +34,10 @@ import requests
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Exchange rates')
-    parser.add_argument('currency_from', type=str, help='Initial currency')
-    parser.add_argument('currency_to', type=str, help='Final currency')
+    parser.add_argument('currency_from', type=str, help='Initial currency. By default - USD.')
+    parser.add_argument('currency_to', type=str, help='Final currency. By default - UAH.')
     parser.add_argument('amount', type=float, help='Amount')
-    parser.add_argument('-sd', '--start_date', type=str, help='Exchange date')
+    parser.add_argument('-sd', '--start_date', type=str, help='Optional: Exchange date. By default - today`s date')
     args = parser.parse_args()
 
 
@@ -46,7 +46,9 @@ def check_from_to():
         pars_file = json.load(file)
         symbol = pars_file.get('symbols')
         if args.currency_from not in symbol or args.currency_to not in symbol:
-            print('Wrong enter!')
+            print('Wrong enter! By default using currency from - USD, currency to - UAH.')
+            args.currency_from = 'USD'
+            args.currency_to = 'UAH'
 
 
 def check_format_date():
@@ -54,8 +56,6 @@ def check_format_date():
         datetime.datetime.strptime(args.start_date, '%Y-%m-%d')
     except ValueError:
         args.start_date = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d')
-#    except TypeError:
-#        args.start_date = datetime.datetime.strftime(datetime.datetime.now(), '%Y-%m-%d')
 
 
 def check_date():
@@ -66,37 +66,23 @@ def check_date():
 
 def get_file():
     script_date = datetime.datetime.strptime(args.start_date, '%Y-%m-%d')
-    next_date = datetime.timedelta(days=1)
-    today_date = datetime.datetime.now()
-    while script_date <= today_date:
+    inform_list = [['Date', 'From', 'To', 'Amount', 'Rate', 'Result']]
+    while script_date <= datetime.datetime.now():
         r = requests.get('https://api.exchangerate.host/convert?',
                          params={'from': args.currency_from, 'to': args.currency_to, 'amount': args.amount,
                                  'date': script_date})
-        script_date += next_date
-        return r.json()
-
-# !!!!!!!!! Может сделать запись в список и json в одной функции???
-def get_inform():
-    inform = get_file()
-    big_list = []
-    head_str = ['Date', 'From', 'To', 'Amount', 'Rate', 'Result']
-    big_list.append(head_str)
-    small_list = []
-    small_list.append(str(inform['date']))
-    small_list.append(str(inform['query']['from']))
-    small_list.append(str(inform['query']['to']))
-    small_list.append(str(inform['query']['amount']))
-    small_list.append(str(inform['info']['rate']))
-    small_list.append(str(inform['result']))
-    big_list.append(small_list)
-    return big_list
+        inform = r.json()
+        inform_list.append([inform['date'], inform['query']['from'], inform['query']['to'], inform['query']['amount'],
+                            inform['info']['rate'], inform['result']])
+        script_date += datetime.timedelta(days=1)
+    return inform_list
 
 
 def main():
     check_from_to()
     check_format_date()
     check_date()
-    print(get_inform())
+    print(get_file())
 
 
 main()
