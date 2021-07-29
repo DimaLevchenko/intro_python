@@ -1,18 +1,18 @@
-#Ввести с клавиатуры два целых числа: x и y
+# Ввести с клавиатуры два целых числа: x и y
 #   - Вывести на экран консоли оба числа используя только один вызов print()
 #   - Вычислить сумму чисел
 #   - Выполнить целочисленное деление
 #   - Найти остаток
 #   - Вычислить степень числа: x^y
 
-x=12
-y=5
-print ('x','y')
-sum = x+y
-print(sum)
+x = 12
+y = 5
+print('x', 'y')
+summa = x+y
+print(summa)
 fldiv = x//y
 print(fldiv)
-remdiv = x%y
-print (remdiv)
-pow = x**y
-print (pow)
+remdiv = x % y
+print(remdiv)
+stepen = x**y
+print(stepen)
