@@ -14,10 +14,7 @@ def get_time():
         dur = []
         for duration in indict:
             dur.append(int(duration['duration']))
-        s = sum(dur) % 60
-        m = sum(dur) // 60
-        h = m // 60
-        td = timedelta(hours=h, minutes=m, seconds=s)
+        td = timedelta(seconds=sum(dur))
     return td
 
 
